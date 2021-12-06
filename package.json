@@ -1,10 +1,10 @@
 {
-  "name": "@briebug/jest-schematic",
-  "version": "3.1.0",
+  "name": "@patou/jest-schematic",
+  "version": "3.2.0",
   "description": "Schematic to add jest to an Angular CLI project",
-  "repository": "briebug/jest-schematic",
-  "bugs": "https://github.com/briebug/jest-schematic/issues",
-  "homepage": "https://github.com/briebug/jest-schematic",
+  "repository": "@patou/jest-schematic",
+  "bugs": "https://github.com/patou/jest-schematic/issues",
+  "homepage": "https://github.com/patou/jest-schematic",
   "main": "src/jest/index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
