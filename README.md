@@ -4,12 +4,12 @@ This schematic will configure Angular to execute unit tests with Jest for single
 
 Fork of the https://github.com/briebug/jest-schematic until this pull request is merged : https://github.com/briebug/jest-schematic/pull/79
 
-[![npm (scoped)](https://img.shields.io/npm/v/@patou/jest-schematic.svg)](https://www.npmjs.com/package/@patou/jest-schematic)
+[![npm (scoped)](https://img.shields.io/npm/v/@patoudss/jest-schematic.svg)](https://www.npmjs.com/package/@patoudss/jest-schematic)
 
 ## Usage 🚀
 
 ```shell
-ng add @patou/jest-schematic
+ng add @patoudss/jest-schematic
 ```
 
 - install [Jest](https://facebook.github.io/jest/), types and a [builder](https://github.com/just-jeb/angular-builders/tree/master/packages/jest)
@@ -19,13 +19,13 @@ ng add @patou/jest-schematic
 ### Optionally: install globally
 
 ```shell
-npm install -g @patou/jest-schematic
+npm install -g @patoudss/jest-schematic
 ```
 
 Then in an Angular CLI project run
 
 ```shell
-ng g @patou/jest-schematic:add
+ng g @patoudss/jest-schematic:add
 ```
 
 ![jest-schematic-demo-500](docs/jest-schematic-demo-500.gif)
@@ -85,9 +85,9 @@ yarn reset
 ### Test schematics against a local project
 
 - run `yarn build` to compile the schematic in watch mode
-- open another shell, cd into the local repo you want to run the schematic against, and run `yarn link @patou/jest-schematic`. This assumes you've run `yarn link` in this repo on your machine.
+- open another shell, cd into the local repo you want to run the schematic against, and run `yarn link @patoudss/jest-schematic`. This assumes you've run `yarn link` in this repo on your machine.
   - this will symlink the projects so that the Jest schematic command runs from you're local filesystem
-- in the local repo you want to run the schematic against, run `ng g @patou/jest-schematic:add`
+- in the local repo you want to run the schematic against, run `ng g @patoudss/jest-schematic:add`
 
 ### Dev tips
 
