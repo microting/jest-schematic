@@ -4,6 +4,7 @@ src/**/*.js
 !src/**/workspace-files/**/*.js
 src/**/*.js.map
 src/**/*.d.ts
+.angular
 
 # IDEs
 .idea/
