@@ -7,13 +7,10 @@
  * https://github.com/angular/angular-cli/blob/master/packages/schematics/angular/utility/json-utils.ts
  */
 import {
-  JsonAstArray,
-  JsonAstKeyValue,
-  JsonAstNode,
-  JsonAstObject,
   JsonValue,
 } from '@angular-devkit/core';
 import { UpdateRecorder } from '@angular-devkit/schematics';
+import { JsonAstArray, JsonAstKeyValue, JsonAstNode, JsonAstObject } from '@angular-devkit/core/src/json/parser_ast';
 
 export function appendPropertyInAstObject(
   recorder: UpdateRecorder,

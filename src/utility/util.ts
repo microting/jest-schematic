@@ -1,5 +1,3 @@
-import { JsonParseMode, parseJsonAst, JsonAstObject } from '@angular-devkit/core';
-
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
 
 import { pkgJson, DeleteNodeDependency, getPackageJsonDependency } from './dependencies';
@@ -7,6 +5,8 @@ import { pkgJson, DeleteNodeDependency, getPackageJsonDependency } from './depen
 import { findPropertyInAstObject } from './json-utils';
 
 import { get } from 'http';
+import { JsonAstObject } from '@angular-devkit/core/src/json/parser_ast';
+import { JsonParseMode, parseJsonAst } from '@angular-devkit/core/src/json/parser';
 
 export interface NodePackage {
   name: string;
