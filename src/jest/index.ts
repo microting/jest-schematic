@@ -9,22 +9,24 @@ import {
   mergeWith,
   template,
 } from '@angular-devkit/schematics';
+import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 
 import {
+  removePackageJsonDependency,
   JestOptions,
   safeFileDelete,
-  getAngularVersion, removePackageJsonDependency,
+  getAngularVersion,
+  getLatestNodeVersion,
+  NodePackage,
 } from '../utility/util';
 
+import { addPackageJsonDependency, NodeDependencyType } from '../utility/dependencies';
+
+import { Observable, of, concat } from 'rxjs';
+import { map, concatMap } from 'rxjs/operators';
 import { TsConfigSchema } from '../interfaces/ts-config-schema';
 
-import { getLatestNodeVersion, getWorkspaceConfig, NodePackage, readJsonInTree } from '@schuchard/schematics-core';
-import { concatMap, map, of } from 'rxjs';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import {
-  addPackageJsonDependency,
-  NodeDependencyType,
-} from '@schematics/angular/utility/dependencies';
+import { getWorkspaceConfig, readJsonInTree } from '@schuchard/schematics-core';
 
 export default function (options: JestOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
@@ -42,11 +44,12 @@ export default function (options: JestOptions): Rule {
 }
 
 function updateDependencies(): Rule {
-  return (tree: Tree, context: SchematicContext) => {
+  // @ts-ignore
+  return (tree: Tree, context: SchematicContext): Observable<Tree> => {
     context.logger.debug('Updating dependencies...');
     context.addTask(new NodePackageInstallTask());
 
-    of(
+    const removeDependencies = of(
       'karma',
       'karma-jasmine',
       'karma-jasmine-html-reporter',
@@ -68,7 +71,7 @@ function updateDependencies(): Rule {
       })
     );
 
-    of('jest', '@types/jest', '@angular-builders/jest').pipe(
+    const addDependencies = of('jest', '@types/jest', '@angular-builders/jest').pipe(
       concatMap((packageName: string) => getLatestNodeVersion(packageName)),
       map((packageFromRegistry: NodePackage) => {
         const { name, version } = packageFromRegistry;
@@ -84,9 +87,7 @@ function updateDependencies(): Rule {
       })
     );
 
-
-    //return concat(removeDependencies, addDependencies);
-    return tree;
+    return concat(removeDependencies, addDependencies);
   };
 }
 
