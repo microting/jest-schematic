@@ -1,8 +1,8 @@
 {
-  "name": "@patoudss/jest-schematic",
-  "version": "3.2.0",
+  "name": "@microting/jest-schematic",
+  "version": "3.2.1",
   "description": "Schematic to add jest to an Angular CLI project",
-  "repository": "@patoudss/jest-schematic",
+  "repository": "@microting/jest-schematic",
   "bugs": "https://github.com/briebug/jest-schematic/issues",
   "homepage": "https://github.com/briebug/jest-schematic",
   "main": "src/jest/index.js",
