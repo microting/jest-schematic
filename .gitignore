@@ -4,6 +4,7 @@ src/**/*.js
 !src/**/workspace-files/**/*.js
 src/**/*.js.map
 src/**/*.d.ts
+.angular
 
 # IDEs
 .idea/
@@ -15,6 +16,7 @@ node_modules/
 npm-debug.log*
 yarn-error.log*
 *.todo
+.angular
 
 # Mac OSX Finder files.
 **/.DS_Store

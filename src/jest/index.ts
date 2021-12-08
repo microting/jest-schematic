@@ -35,51 +35,53 @@ export default function (options: JestOptions): Rule {
   };
 }
 
-// function updateDependencies(): Rule {
-//   return (tree: Tree, context: SchematicContext): Observable<Tree> => {
-//     context.logger.debug('Updating dependencies...');
-//     context.addTask(new NodePackageInstallTask());
-//
-//     const removeDependencies = of(
-//       'karma',
-//       'karma-jasmine',
-//       'karma-jasmine-html-reporter',
-//       'karma-chrome-launcher',
-//       'karma-coverage',
-//       'karma-coverage-istanbul-reporter'
-//     ).pipe(
-//       map((packageName: string) => {
-//         context.logger.debug(`Removing ${packageName} dependency`);
-//
-//         removePackageJsonDependency(tree, {
-//           type: NodeDependencyType.Dev,
-//           name: packageName,
-//         });
-//
-//         return tree;
-//       })
-//     );
-//
-//     const addDependencies = of('jest', '@types/jest', '@angular-builders/jest').pipe(
-//       concatMap((packageName: string) => getLatestNodeVersion(packageName)),
-//       map((packageFromRegistry: NodePackage) => {
-//         const { name, version } = packageFromRegistry;
-//         context.logger.debug(`Adding ${name}:${version} to ${NodeDependencyType.Dev}`);
-//
-//         addPackageJsonDependency(tree, {
-//           type: NodeDependencyType.Dev,
-//           name,
-//           version,
-//         });
-//
-//         return tree;
-//       })
-//     );
-//
-//     return concat(removeDependencies, addDependencies);
-//   };
-// }
-//
+function updateDependencies(): Rule {
+  return (tree: Tree, context: SchematicContext): Observable<Tree> => {
+    context.logger.debug('Updating dependencies...');
+    context.addTask(new NodePackageInstallTask());
+
+    const removeDependencies = of(
+      'karma',
+      'karma-jasmine',
+      'karma-jasmine-html-reporter',
+      'karma-chrome-launcher',
+      'karma-coverage-istanbul-reporter',
+      'karma-coverage',
+      'jasmine-core',
+      '@types/jasmine'
+    ).pipe(
+      map((packageName: string) => {
+        context.logger.debug(`Removing ${packageName} dependency`);
+
+        removePackageJsonDependency(tree, {
+          type: NodeDependencyType.Dev,
+          name: packageName,
+        });
+
+        return tree;
+      })
+    );
+
+    const addDependencies = of('jest', '@types/jest', '@angular-builders/jest').pipe(
+      concatMap((packageName: string) => getLatestNodeVersion(packageName)),
+      map((packageFromRegistry: NodePackage) => {
+        const { name, version } = packageFromRegistry;
+        context.logger.debug(`Adding ${name}:${version} to ${NodeDependencyType.Dev}`);
+
+        addPackageJsonDependency(tree, {
+          type: NodeDependencyType.Dev,
+          name,
+          version,
+        });
+
+        return tree;
+      })
+    );
+
+    return concat(removeDependencies, addDependencies);
+  };
+}
+
 function removeFiles(): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const angularProjects = Object.values(
@@ -123,6 +125,8 @@ function updateAngularJson(): Rule {
       if (test?.builder) {
         test.builder = '@angular-builders/jest:run';
         delete test.options.main;
+        delete test.options.polyfills;
+        delete test.options.inlineStyleLanguage;
         delete test.options.karmaConfig;
       }
     });
