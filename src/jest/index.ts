@@ -13,19 +13,25 @@ import {
 import {
   JestOptions,
   safeFileDelete,
-  getAngularVersion
+  getAngularVersion, removePackageJsonDependency,
 } from '../utility/util';
 
 import { TsConfigSchema } from '../interfaces/ts-config-schema';
 
-import { getWorkspaceConfig, readJsonInTree } from '@schuchard/schematics-core';
+import { getLatestNodeVersion, getWorkspaceConfig, NodePackage, readJsonInTree } from '@schuchard/schematics-core';
+import { concatMap, map, of } from 'rxjs';
+import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+import {
+  addPackageJsonDependency,
+  NodeDependencyType,
+} from '@schematics/angular/utility/dependencies';
 
 export default function (options: JestOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
     options = { ...options, __version__: getAngularVersion(tree) };
 
     return chain([
-      //updateDependencies(),
+      updateDependencies(),
       removeFiles(),
       updateAngularJson(),
       addRootFiles(),
@@ -36,11 +42,11 @@ export default function (options: JestOptions): Rule {
 }
 
 function updateDependencies(): Rule {
-  return (tree: Tree, context: SchematicContext): Observable<Tree> => {
+  return (tree: Tree, context: SchematicContext) => {
     context.logger.debug('Updating dependencies...');
     context.addTask(new NodePackageInstallTask());
 
-    const removeDependencies = of(
+    of(
       'karma',
       'karma-jasmine',
       'karma-jasmine-html-reporter',
@@ -62,7 +68,7 @@ function updateDependencies(): Rule {
       })
     );
 
-    const addDependencies = of('jest', '@types/jest', '@angular-builders/jest').pipe(
+    of('jest', '@types/jest', '@angular-builders/jest').pipe(
       concatMap((packageName: string) => getLatestNodeVersion(packageName)),
       map((packageFromRegistry: NodePackage) => {
         const { name, version } = packageFromRegistry;
@@ -78,7 +84,9 @@ function updateDependencies(): Rule {
       })
     );
 
-    return concat(removeDependencies, addDependencies);
+
+    //return concat(removeDependencies, addDependencies);
+    return tree;
   };
 }
 
