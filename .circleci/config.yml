@@ -2,11 +2,8 @@ version: 2
 jobs:
   build:
     docker:
-<<<<<<< HEAD
-      - image: 'circleci/node:lts-browsers'
-=======
-      - image: 'cimg/node:16.13.0-browsers'
->>>>>>> 0d71821fc28093ede0416980ed04b49c8489fbc3
+      # https://circleci.com/developer/images/image/cimg/node
+      - image: cimg/node:lts-browsers
     steps:
       - checkout
       # Download and cache dependencies
@@ -26,11 +23,7 @@ jobs:
 
   test-single-app:
     docker:
-<<<<<<< HEAD
-      - image: 'circleci/node:lts-browsers'
-=======
-      - image: 'cimg/node:16.13.0-browsers'
->>>>>>> 0d71821fc28093ede0416980ed04b49c8489fbc3
+      - image: cimg/node:lts-browsers
     steps:
       - checkout
       # Download and cache dependencies
@@ -45,11 +38,7 @@ jobs:
 
   test-workspace-app-lib:
     docker:
-<<<<<<< HEAD
-      - image: 'circleci/node:lts-browsers'
-=======
-      - image: 'cimg/node:16.13.0-browsers'
->>>>>>> 0d71821fc28093ede0416980ed04b49c8489fbc3
+      - image: cimg/node:lts-browsers
     steps:
       - checkout
       # Download and cache dependencies
