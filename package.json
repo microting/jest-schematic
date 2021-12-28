@@ -27,7 +27,7 @@
   "dependencies": {
     "@angular-devkit/core": "^13.0.4",
     "@angular-devkit/schematics": "^13.0.4",
-    "@microting/schematics-core": "^0.5.0",
+    "@schuchard/schematics-core": "^0.4.0",
     "@schematics/angular": "^13.0.4",
     "rxjs": "^7.4.0"
   },
