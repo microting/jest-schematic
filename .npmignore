@@ -9,3 +9,5 @@
 
 sandbox
 docs
+.github
+sandboxes/workspace/yarn.lock

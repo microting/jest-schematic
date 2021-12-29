@@ -26,7 +26,7 @@ import { Observable, of, concat } from 'rxjs';
 import { map, concatMap } from 'rxjs/operators';
 import { TsConfigSchema } from '../interfaces/ts-config-schema';
 
-import { getWorkspaceConfig, readJsonInTree } from '@schuchard/schematics-core';
+import { getWorkspaceConfig, readJsonInTree } from '@microting/schematics-core';
 
 export default function (options: JestOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
